@@ -1,0 +1,15 @@
+INSERT INTO wands (wood, core, length_in_inches)
+VALUES ('holly','phoenix feather', 11),
+('vine','dragon heartstring', NULL),
+('willow','unicorn tail-hair',14),
+('hawthorn','unicorn tail-hair',10),
+('ash','unicorn hair',12.25),
+('oak',NULL,16),
+('cherry','unicorn tail-hair',13),
+('yew',NULL,NULL),
+('cypress','unicorn tail-hair',10.25),
+('walnut','dragon heartstring',12.75),
+('yew','phoenix feather',13.5),
+('cedar','dragon heartstring',10.25),
+('birch','dragon heartstring',8),
+('elm','dragon heartstring',18);
