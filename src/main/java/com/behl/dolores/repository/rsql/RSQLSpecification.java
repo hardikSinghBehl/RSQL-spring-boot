@@ -64,10 +64,10 @@ public class RSQLSpecification<T> implements Specification<T> {
             }
         case EQUAL_IGNORE_CASE:
             return builder.createQuery().where(builder.or(builder.like(builder.lower(root.<String>get(property)),
-                    "%" + argument.toString().toLowerCase() + "%"))).getGroupRestriction();
+                    "%" + argument.toString().toLowerCase() + "%"))).getRestriction();
         case NOT_EQUAL_IGNORE_CASE:
             return builder.createQuery().where(builder.or(builder.like(builder.lower(root.<String>get(property)),
-                    "%" + argument.toString().toLowerCase() + "%"))).getGroupRestriction().not();
+                    "%" + argument.toString().toLowerCase() + "%"))).getRestriction().not();
         case GREATER_THAN:
             if (argument instanceof LocalDateTime)
                 return builder.greaterThan(root.<LocalDateTime>get(property), (LocalDateTime) argument);
