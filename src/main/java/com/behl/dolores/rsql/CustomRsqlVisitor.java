@@ -1,4 +1,4 @@
-package com.behl.dolores.repository.rsql;
+package com.behl.dolores.rsql;
 
 import org.springframework.data.jpa.domain.Specification;
 

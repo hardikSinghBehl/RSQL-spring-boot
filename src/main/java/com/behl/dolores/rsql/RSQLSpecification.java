@@ -1,4 +1,4 @@
-package com.behl.dolores.repository.rsql;
+package com.behl.dolores.rsql;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 import com.behl.dolores.entity.constant.Gender;
 import com.behl.dolores.entity.constant.Species;
 import com.behl.dolores.exception.PossibleSqlInjectionAttackException;
-import com.behl.dolores.repository.rsql.constant.RSQLSearchOperation;
+import com.behl.dolores.rsql.constant.RSQLSearchOperation;
 import com.github.rkpunjal.sqlsafe.SqlSafeUtil;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;

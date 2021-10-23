@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.behl.dolores.entity.Wizard;
 import com.behl.dolores.repository.WizardRepository;
-import com.behl.dolores.repository.rsql.CustomRsqlVisitor;
+import com.behl.dolores.rsql.CustomRsqlVisitor;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import lombok.AllArgsConstructor;

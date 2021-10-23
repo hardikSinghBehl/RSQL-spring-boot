@@ -1,4 +1,4 @@
-package com.behl.dolores.repository.rsql.bean;
+package com.behl.dolores.rsql.bean;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.behl.dolores.repository.rsql.constant.CustomOperator;
+import com.behl.dolores.rsql.constant.CustomOperator;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;

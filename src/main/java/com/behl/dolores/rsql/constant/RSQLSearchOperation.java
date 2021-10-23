@@ -1,4 +1,4 @@
-package com.behl.dolores.repository.rsql.constant;
+package com.behl.dolores.rsql.constant;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;

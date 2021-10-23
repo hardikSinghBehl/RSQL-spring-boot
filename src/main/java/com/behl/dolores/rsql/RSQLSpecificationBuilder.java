@@ -1,4 +1,4 @@
-package com.behl.dolores.repository.rsql;
+package com.behl.dolores.rsql;
 
 import java.util.List;
 import java.util.Objects;
