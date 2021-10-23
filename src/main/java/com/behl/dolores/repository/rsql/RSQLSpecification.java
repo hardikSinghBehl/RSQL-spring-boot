@@ -16,7 +16,9 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.behl.dolores.entity.constant.Gender;
 import com.behl.dolores.entity.constant.Species;
+import com.behl.dolores.exception.PossibleSqlInjectionAttackException;
 import com.behl.dolores.repository.rsql.constant.RSQLSearchOperation;
+import com.github.rkpunjal.sqlsafe.SqlSafeUtil;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import lombok.AllArgsConstructor;
@@ -124,23 +126,25 @@ public class RSQLSpecification<T> implements Specification<T> {
 
     private List<Object> castArguments(final Root<T> root) {
         Class<? extends Object> type = getAbsolutePath(root, property).getJavaType();
-        return arguments.stream().map(arg -> {
+        return arguments.stream().map(argument -> {
+            if (SqlSafeUtil.isSqlInjectionSafe(argument))
+                throw new PossibleSqlInjectionAttackException();
             if (type.isEnum()) {
-                return arg.equals("null") ? null : retreiveEnumClass(type, arg);
+                return argument.equals("null") ? null : retreiveEnumClass(type, argument);
             } else if (type.equals(UUID.class)) {
-                return arg.equals("null") ? null : UUID.fromString(arg);
+                return argument.equals("null") ? null : UUID.fromString(argument);
             } else if (type.equals(LocalDate.class)) {
-                return arg.equals("null") ? null : LocalDate.parse(arg);
+                return argument.equals("null") ? null : LocalDate.parse(argument);
             } else if (type.equals(LocalDateTime.class)) {
-                return arg.equals("null") ? null : LocalDateTime.parse(arg);
+                return argument.equals("null") ? null : LocalDateTime.parse(argument);
             } else if (type.equals(Integer.class)) {
-                return arg.equals("null") ? null : Integer.parseInt(arg);
+                return argument.equals("null") ? null : Integer.parseInt(argument);
             } else if (type.equals(Long.class)) {
-                return arg.equals("null") ? null : Long.parseLong(arg);
+                return argument.equals("null") ? null : Long.parseLong(argument);
             } else if (type.equals(Double.class)) {
-                return arg.equals("null") ? null : Double.valueOf(arg);
+                return argument.equals("null") ? null : Double.valueOf(argument);
             } else {
-                return arg;
+                return argument;
             }
         }).collect(Collectors.toList());
     }
