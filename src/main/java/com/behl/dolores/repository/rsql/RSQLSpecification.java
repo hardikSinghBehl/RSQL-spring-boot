@@ -74,7 +74,7 @@ public class RSQLSpecification<T> implements Specification<T> {
             if (argument instanceof Double)
                 return builder.createQuery()
                         .where(builder.greaterThan(getAbsolutePath(root, property), argument.toString()))
-                        .getGroupRestriction();
+                        .getRestriction();
             return builder.greaterThan(root.<String>get(property), argument.toString());
         case GREATER_THAN_OR_EQUAL:
             if (argument instanceof LocalDateTime)
@@ -84,7 +84,7 @@ public class RSQLSpecification<T> implements Specification<T> {
             if (argument instanceof Double)
                 return builder.createQuery()
                         .where(builder.greaterThanOrEqualTo(getAbsolutePath(root, property), argument.toString()))
-                        .getGroupRestriction();
+                        .getRestriction();
             return builder.greaterThanOrEqualTo(root.<String>get(property), argument.toString());
         case LESS_THAN:
             if (argument instanceof LocalDateTime)
@@ -93,8 +93,7 @@ public class RSQLSpecification<T> implements Specification<T> {
                 return builder.lessThan(root.<LocalDate>get(property), ((LocalDate) argument));
             if (argument instanceof Double)
                 return builder.createQuery()
-                        .where(builder.lessThan(getAbsolutePath(root, property), argument.toString()))
-                        .getGroupRestriction();
+                        .where(builder.lessThan(getAbsolutePath(root, property), argument.toString())).getRestriction();
             return builder.lessThan(root.<String>get(property), argument.toString());
         case LESS_THAN_OR_EQUAL:
             if (argument instanceof LocalDateTime)
@@ -104,7 +103,7 @@ public class RSQLSpecification<T> implements Specification<T> {
             if (argument instanceof Double)
                 return builder.createQuery()
                         .where(builder.lessThanOrEqualTo(getAbsolutePath(root, property), argument.toString()))
-                        .getGroupRestriction();
+                        .getRestriction();
             return builder.lessThanOrEqualTo(root.<String>get(property), argument.toString());
         case IN:
             return getAbsolutePath(root, property).in(args);
