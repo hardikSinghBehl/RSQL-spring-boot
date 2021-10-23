@@ -127,7 +127,7 @@ public class RSQLSpecification<T> implements Specification<T> {
     private List<Object> castArguments(final Root<T> root) {
         Class<? extends Object> type = getAbsolutePath(root, property).getJavaType();
         return arguments.stream().map(argument -> {
-            if (SqlSafeUtil.isSqlInjectionSafe(argument))
+            if (!SqlSafeUtil.isSqlInjectionSafe(argument))
                 throw new PossibleSqlInjectionAttackException();
             if (type.isEnum()) {
                 return argument.equals("null") ? null : retreiveEnumClass(type, argument);
