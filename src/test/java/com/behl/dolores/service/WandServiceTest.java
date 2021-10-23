@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.behl.dolores.dto.RsqlSearchRequestDto;
 import com.behl.dolores.entity.Wand;
 import com.behl.dolores.repository.WandRepository;
 
@@ -44,7 +45,7 @@ class WandServiceTest {
 
     @Test
     void retreiveAllWithoutAnyQuery_returnsAllRecords() {
-        final var result = wandService.retreive(null, null, null);
+        final var result = wandService.retreive(RsqlSearchRequestDto.builder().build());
 
         assertEquals(1, result.getResult().size());
         final Wand wand = (Wand) result.getResult().get(0);
@@ -55,7 +56,7 @@ class WandServiceTest {
 
     @Test
     void retreiveWithSingleEqualCondition_matching() {
-        final var result = wandService.retreive("wood==" + WOOD, null, null);
+        final var result = wandService.retreive(RsqlSearchRequestDto.builder().query("wood==" + WOOD).build());
 
         assertEquals(1, result.getResult().size());
         final Wand wand = (Wand) result.getResult().get(0);
@@ -66,14 +67,16 @@ class WandServiceTest {
 
     @Test
     void retreiveWithSingleEqualCondition_notMatching() {
-        final var result = wandService.retreive("wood==" + RandomString.make(4), null, null);
+        final var result = wandService
+                .retreive(RsqlSearchRequestDto.builder().query("wood==" + RandomString.make(4)).build());
 
         assertEquals(0, result.getResult().size());
     }
 
     @Test
     void retreiveWithSingleNotEqualCondition_matching() {
-        final var result = wandService.retreive("wood!=" + RandomString.make(4), null, null);
+        final var result = wandService
+                .retreive(RsqlSearchRequestDto.builder().query("wood!=" + RandomString.make(4)).build());
 
         assertEquals(1, result.getResult().size());
         final Wand wand = (Wand) result.getResult().get(0);
@@ -84,7 +87,8 @@ class WandServiceTest {
 
     @Test
     void retreiveWithANDConditions_matching() {
-        final var result = wandService.retreive("wood==" + WOOD + ";length>" + (LENGTH - 1), null, null);
+        final var result = wandService
+                .retreive(RsqlSearchRequestDto.builder().query("wood==" + WOOD + ";length>" + (LENGTH - 1)).build());
 
         assertEquals(1, result.getResult().size());
         final Wand wand = (Wand) result.getResult().get(0);
@@ -95,14 +99,16 @@ class WandServiceTest {
 
     @Test
     void retreiveWithANDConditions_notMatching() {
-        final var result = wandService.retreive("wood==" + RandomString.make(4) + ";core==" + CORE, null, null);
+        final var result = wandService.retreive(
+                RsqlSearchRequestDto.builder().query("wood==" + RandomString.make(4) + ";core==" + CORE).build());
 
         assertEquals(0, result.getResult().size());
     }
 
     @Test
     void retreiveWithORConditions_matching() {
-        final var result = wandService.retreive("wood==" + WOOD + ",length>" + (LENGTH + 100), null, null);
+        final var result = wandService
+                .retreive(RsqlSearchRequestDto.builder().query("wood==" + WOOD + ",length>" + (LENGTH + 100)).build());
 
         assertEquals(1, result.getResult().size());
         final Wand wand = (Wand) result.getResult().get(0);
@@ -113,15 +119,16 @@ class WandServiceTest {
 
     @Test
     void retreiveWithORConditions_notMatching() {
-        final var result = wandService.retreive("wood==" + RandomString.make(4) + ",core==" + RandomString.make(4),
-                null, null);
+        final var result = wandService.retreive(RsqlSearchRequestDto.builder()
+                .query("wood==" + RandomString.make(4) + ",core==" + RandomString.make(4)).build());
 
         assertEquals(0, result.getResult().size());
     }
 
     @Test
     void retreiveWithEqualIgnoreCaseCondition_matching() {
-        final var result = wandService.retreive("wood=eic=" + WOOD.toUpperCase(), null, null);
+        final var result = wandService
+                .retreive(RsqlSearchRequestDto.builder().query("wood=eic=" + WOOD.toUpperCase()).build());
 
         assertEquals(1, result.getResult().size());
         final Wand wand = (Wand) result.getResult().get(0);
@@ -132,7 +139,8 @@ class WandServiceTest {
 
     @Test
     void retreiveWithNotEqualIgnoreCaseCondition_matching() {
-        final var result = wandService.retreive("wood=neic=" + WOOD.toUpperCase(), null, null);
+        final var result = wandService
+                .retreive(RsqlSearchRequestDto.builder().query("wood=neic=" + WOOD.toUpperCase()).build());
 
         assertEquals(0, result.getResult().size());
     }
