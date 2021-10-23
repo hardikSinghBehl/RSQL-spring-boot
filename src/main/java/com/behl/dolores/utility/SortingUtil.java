@@ -6,10 +6,10 @@ public class SortingUtil {
 
     public static Sort build(String sortArguments) {
         Sort sort = Sort.unsorted();
-        sortArguments = sortArguments.replaceAll("'", "").replaceAll("\"", "");
         if (sortArguments == null || sortArguments.length() == 0)
             return sort;
         else {
+            sortArguments = sortArguments.replaceAll("'", "").replaceAll("\"", "");
             for (String sortArgument : sortArguments.split("(?=\\@|\\$)")) {
                 if (sortArgument.charAt(0) == '$')
                     sort = sort.and(Sort.by(sortArgument.substring(1)).descending());
