@@ -127,19 +127,19 @@ public class RSQLSpecification<T> implements Specification<T> {
         Class<? extends Object> type = getAbsolutePath(root, property).getJavaType();
         return arguments.stream().map(arg -> {
             if (type.isEnum()) {
-                return retreiveEnumClass(type, arg);
+                return arg.equals("null") ? null : retreiveEnumClass(type, arg);
             } else if (type.equals(UUID.class)) {
-                return UUID.fromString(arg);
+                return arg.equals("null") ? null : UUID.fromString(arg);
             } else if (type.equals(LocalDate.class)) {
-                return LocalDate.parse(arg);
+                return arg.equals("null") ? null : LocalDate.parse(arg);
             } else if (type.equals(LocalDateTime.class)) {
-                return LocalDateTime.parse(arg);
+                return arg.equals("null") ? null : LocalDateTime.parse(arg);
             } else if (type.equals(Integer.class)) {
-                return Integer.parseInt(arg);
+                return arg.equals("null") ? null : Integer.parseInt(arg);
             } else if (type.equals(Long.class)) {
-                return Long.parseLong(arg);
+                return arg.equals("null") ? null : Long.parseLong(arg);
             } else if (type.equals(Double.class)) {
-                return Double.valueOf(arg);
+                return arg.equals("null") ? null : Double.valueOf(arg);
             } else {
                 return arg;
             }
