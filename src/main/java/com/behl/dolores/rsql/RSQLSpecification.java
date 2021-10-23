@@ -143,6 +143,8 @@ public class RSQLSpecification<T> implements Specification<T> {
                 return argument.equals("null") ? null : Long.parseLong(argument);
             } else if (type.equals(Double.class)) {
                 return argument.equals("null") ? null : Double.valueOf(argument);
+            } else if (type.equals(Boolean.class)) {
+                return Boolean.valueOf(argument);
             } else {
                 return argument;
             }
