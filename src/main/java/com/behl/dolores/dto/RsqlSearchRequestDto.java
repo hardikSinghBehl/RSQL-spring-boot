@@ -12,5 +12,6 @@ public class RsqlSearchRequestDto {
     private final String query;
     private final Integer count;
     private final Integer page;
+    private final String sort;
 
 }

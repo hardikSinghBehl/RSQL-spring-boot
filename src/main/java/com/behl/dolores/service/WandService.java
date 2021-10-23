@@ -12,6 +12,7 @@ import com.behl.dolores.repository.WandRepository;
 import com.behl.dolores.rsql.CustomRsqlVisitor;
 import com.behl.dolores.utility.PageableUtil;
 import com.behl.dolores.utility.ResponseBuilder;
+import com.behl.dolores.utility.SortingUtil;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import lombok.AllArgsConstructor;
@@ -31,14 +32,15 @@ public class WandService {
         final String query = rsqlSearchRequestDto.getQuery();
         final Integer count = rsqlSearchRequestDto.getCount();
         final Integer page = rsqlSearchRequestDto.getPage();
+        final String sort = rsqlSearchRequestDto.getSort();
 
         if (query == null || query.length() == 0) {
-            result = wandRepository.findAll(
-                    PageRequest.of(PageableUtil.getPageNumber(page), PageableUtil.getCount(count, DEFAULT_COUNT)));
+            result = wandRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(page),
+                    PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
         } else {
             Specification<Wand> specification = rsqlParser.parse(query).accept(wandRsqlVisitor);
-            result = wandRepository.findAll(specification,
-                    PageRequest.of(PageableUtil.getPageNumber(page), PageableUtil.getCount(count, DEFAULT_COUNT)));
+            result = wandRepository.findAll(specification, PageRequest.of(PageableUtil.getPageNumber(page),
+                    PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
         }
         return ResponseBuilder.build(result);
     }
