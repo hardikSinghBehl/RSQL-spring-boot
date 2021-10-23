@@ -130,19 +130,19 @@ public class RSQLSpecification<T> implements Specification<T> {
             if (!SqlSafeUtil.isSqlInjectionSafe(argument))
                 throw new PossibleSqlInjectionAttackException();
             if (type.isEnum()) {
-                return argument.equals("null") ? null : retreiveEnumClass(type, argument);
+                return argument.equalsIgnoreCase("null") ? null : retreiveEnumClass(type, argument);
             } else if (type.equals(UUID.class)) {
-                return argument.equals("null") ? null : UUID.fromString(argument);
+                return argument.equalsIgnoreCase("null") ? null : UUID.fromString(argument);
             } else if (type.equals(LocalDate.class)) {
-                return argument.equals("null") ? null : LocalDate.parse(argument);
+                return argument.equalsIgnoreCase("null") ? null : LocalDate.parse(argument);
             } else if (type.equals(LocalDateTime.class)) {
-                return argument.equals("null") ? null : LocalDateTime.parse(argument);
+                return argument.equalsIgnoreCase("null") ? null : LocalDateTime.parse(argument);
             } else if (type.equals(Integer.class)) {
-                return argument.equals("null") ? null : Integer.parseInt(argument);
+                return argument.equalsIgnoreCase("null") ? null : Integer.parseInt(argument);
             } else if (type.equals(Long.class)) {
-                return argument.equals("null") ? null : Long.parseLong(argument);
+                return argument.equalsIgnoreCase("null") ? null : Long.parseLong(argument);
             } else if (type.equals(Double.class)) {
-                return argument.equals("null") ? null : Double.valueOf(argument);
+                return argument.equalsIgnoreCase("null") ? null : Double.valueOf(argument);
             } else if (type.equals(Boolean.class)) {
                 return Boolean.valueOf(argument);
             } else {
