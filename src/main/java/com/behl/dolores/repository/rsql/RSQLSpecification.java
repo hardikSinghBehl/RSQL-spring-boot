@@ -71,24 +71,40 @@ public class RSQLSpecification<T> implements Specification<T> {
                 return builder.greaterThan(root.<LocalDateTime>get(property), (LocalDateTime) argument);
             if (argument instanceof LocalDate)
                 return builder.greaterThan(root.<LocalDate>get(property), ((LocalDate) argument));
+            if (argument instanceof Double)
+                return builder.createQuery()
+                        .where(builder.greaterThan(getAbsolutePath(root, property), argument.toString()))
+                        .getGroupRestriction();
             return builder.greaterThan(root.<String>get(property), argument.toString());
         case GREATER_THAN_OR_EQUAL:
             if (argument instanceof LocalDateTime)
                 return builder.greaterThanOrEqualTo(root.<LocalDateTime>get(property), (LocalDateTime) argument);
             if (argument instanceof LocalDate)
                 return builder.greaterThanOrEqualTo(root.<LocalDate>get(property), ((LocalDate) argument));
+            if (argument instanceof Double)
+                return builder.createQuery()
+                        .where(builder.greaterThanOrEqualTo(getAbsolutePath(root, property), argument.toString()))
+                        .getGroupRestriction();
             return builder.greaterThanOrEqualTo(root.<String>get(property), argument.toString());
         case LESS_THAN:
             if (argument instanceof LocalDateTime)
                 return builder.lessThan(root.<LocalDateTime>get(property), (LocalDateTime) argument);
             if (argument instanceof LocalDate)
                 return builder.lessThan(root.<LocalDate>get(property), ((LocalDate) argument));
+            if (argument instanceof Double)
+                return builder.createQuery()
+                        .where(builder.lessThan(getAbsolutePath(root, property), argument.toString()))
+                        .getGroupRestriction();
             return builder.lessThan(root.<String>get(property), argument.toString());
         case LESS_THAN_OR_EQUAL:
             if (argument instanceof LocalDateTime)
                 return builder.lessThanOrEqualTo(root.<LocalDateTime>get(property), (LocalDateTime) argument);
             if (argument instanceof LocalDate)
                 return builder.lessThanOrEqualTo(root.<LocalDate>get(property), ((LocalDate) argument));
+            if (argument instanceof Double)
+                return builder.createQuery()
+                        .where(builder.lessThanOrEqualTo(getAbsolutePath(root, property), argument.toString()))
+                        .getGroupRestriction();
             return builder.lessThanOrEqualTo(root.<String>get(property), argument.toString());
         case IN:
             return getAbsolutePath(root, property).in(args);
@@ -122,6 +138,8 @@ public class RSQLSpecification<T> implements Specification<T> {
                 return Integer.parseInt(arg);
             } else if (type.equals(Long.class)) {
                 return Long.parseLong(arg);
+            } else if (type.equals(Double.class)) {
+                return Double.valueOf(arg);
             } else {
                 return arg;
             }
