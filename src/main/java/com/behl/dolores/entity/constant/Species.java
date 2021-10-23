@@ -1,4 +1,4 @@
-package com.behl.dolores.constant;
+package com.behl.dolores.entity.constant;
 
 public enum Species {
 

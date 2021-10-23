@@ -15,8 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.behl.dolores.constant.Gender;
-import com.behl.dolores.constant.Species;
+import com.behl.dolores.entity.constant.Gender;
+import com.behl.dolores.entity.constant.Species;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode.Exclude;

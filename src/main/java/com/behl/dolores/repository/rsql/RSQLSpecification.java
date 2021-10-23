@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.behl.dolores.constant.Gender;
-import com.behl.dolores.constant.Species;
+import com.behl.dolores.entity.constant.Gender;
+import com.behl.dolores.entity.constant.Species;
 import com.behl.dolores.repository.rsql.constant.RSQLSearchOperation;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
