@@ -44,90 +44,97 @@ class WandServiceTest {
 
     @Test
     void retreiveAllWithoutAnyQuery_returnsAllRecords() {
-        final var result = wandService.retreive(null);
+        final var result = wandService.retreive(null, null, null);
 
-        assertEquals(1, result.size());
-        assertEquals(CORE, result.get(0).getCore());
-        assertEquals(WOOD, result.get(0).getWood());
-        assertEquals(LENGTH, result.get(0).getLength());
+        assertEquals(1, result.getResult().size());
+        final Wand wand = (Wand) result.getResult().get(0);
+        assertEquals(CORE, wand.getCore());
+        assertEquals(WOOD, wand.getWood());
+        assertEquals(LENGTH, wand.getLength());
     }
 
     @Test
     void retreiveWithSingleEqualCondition_matching() {
-        final var result = wandService.retreive("wood==" + WOOD);
+        final var result = wandService.retreive("wood==" + WOOD, null, null);
 
-        assertEquals(1, result.size());
-        assertEquals(CORE, result.get(0).getCore());
-        assertEquals(WOOD, result.get(0).getWood());
-        assertEquals(LENGTH, result.get(0).getLength());
+        assertEquals(1, result.getResult().size());
+        final Wand wand = (Wand) result.getResult().get(0);
+        assertEquals(CORE, wand.getCore());
+        assertEquals(WOOD, wand.getWood());
+        assertEquals(LENGTH, wand.getLength());
     }
 
     @Test
     void retreiveWithSingleEqualCondition_notMatching() {
-        final var result = wandService.retreive("wood==" + RandomString.make(4));
+        final var result = wandService.retreive("wood==" + RandomString.make(4), null, null);
 
-        assertEquals(0, result.size());
+        assertEquals(0, result.getResult().size());
     }
 
     @Test
     void retreiveWithSingleNotEqualCondition_matching() {
-        final var result = wandService.retreive("wood!=" + RandomString.make(4));
+        final var result = wandService.retreive("wood!=" + RandomString.make(4), null, null);
 
-        assertEquals(1, result.size());
-        assertEquals(CORE, result.get(0).getCore());
-        assertEquals(WOOD, result.get(0).getWood());
-        assertEquals(LENGTH, result.get(0).getLength());
+        assertEquals(1, result.getResult().size());
+        final Wand wand = (Wand) result.getResult().get(0);
+        assertEquals(CORE, wand.getCore());
+        assertEquals(WOOD, wand.getWood());
+        assertEquals(LENGTH, wand.getLength());
     }
 
     @Test
     void retreiveWithANDConditions_matching() {
-        final var result = wandService.retreive("wood==" + WOOD + ";length>" + (LENGTH - 1));
+        final var result = wandService.retreive("wood==" + WOOD + ";length>" + (LENGTH - 1), null, null);
 
-        assertEquals(1, result.size());
-        assertEquals(CORE, result.get(0).getCore());
-        assertEquals(WOOD, result.get(0).getWood());
-        assertEquals(LENGTH, result.get(0).getLength());
+        assertEquals(1, result.getResult().size());
+        final Wand wand = (Wand) result.getResult().get(0);
+        assertEquals(CORE, wand.getCore());
+        assertEquals(WOOD, wand.getWood());
+        assertEquals(LENGTH, wand.getLength());
     }
 
     @Test
     void retreiveWithANDConditions_notMatching() {
-        final var result = wandService.retreive("wood==" + RandomString.make(4) + ";core==" + CORE);
+        final var result = wandService.retreive("wood==" + RandomString.make(4) + ";core==" + CORE, null, null);
 
-        assertEquals(0, result.size());
+        assertEquals(0, result.getResult().size());
     }
 
     @Test
     void retreiveWithORConditions_matching() {
-        final var result = wandService.retreive("wood==" + WOOD + ",length>" + (LENGTH + 100));
+        final var result = wandService.retreive("wood==" + WOOD + ",length>" + (LENGTH + 100), null, null);
 
-        assertEquals(1, result.size());
-        assertEquals(CORE, result.get(0).getCore());
-        assertEquals(WOOD, result.get(0).getWood());
-        assertEquals(LENGTH, result.get(0).getLength());
+        assertEquals(1, result.getResult().size());
+        final Wand wand = (Wand) result.getResult().get(0);
+        assertEquals(CORE, wand.getCore());
+        assertEquals(WOOD, wand.getWood());
+        assertEquals(LENGTH, wand.getLength());
     }
 
     @Test
     void retreiveWithORConditions_notMatching() {
-        final var result = wandService.retreive("wood==" + RandomString.make(4) + ",core==" + RandomString.make(4));
+        final var result = wandService.retreive("wood==" + RandomString.make(4) + ",core==" + RandomString.make(4),
+                null, null);
 
-        assertEquals(0, result.size());
+        assertEquals(0, result.getResult().size());
     }
 
     @Test
     void retreiveWithEqualIgnoreCaseCondition_matching() {
-        final var result = wandService.retreive("wood=eic=" + WOOD.toUpperCase());
+        final var result = wandService.retreive("wood=eic=" + WOOD.toUpperCase(), null, null);
 
-        assertEquals(1, result.size());
-        assertEquals(CORE, result.get(0).getCore());
-        assertEquals(WOOD, result.get(0).getWood());
-        assertEquals(LENGTH, result.get(0).getLength());
+        assertEquals(1, result.getResult().size());
+        final Wand wand = (Wand) result.getResult().get(0);
+        assertEquals(CORE, wand.getCore());
+        assertEquals(WOOD, wand.getWood());
+        assertEquals(LENGTH, wand.getLength());
     }
 
     @Test
     void retreiveWithNotEqualIgnoreCaseCondition_matching() {
-        final var result = wandService.retreive("wood=neic=" + WOOD.toUpperCase());
+        final var result = wandService.retreive("wood=neic=" + WOOD.toUpperCase(), null, null);
 
-        assertEquals(0, result.size());
+        assertEquals(0, result.getResult().size());
     }
 
 }
