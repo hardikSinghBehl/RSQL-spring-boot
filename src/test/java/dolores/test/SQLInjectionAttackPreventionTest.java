@@ -3,7 +3,6 @@ package dolores.test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,6 @@ import com.behl.dolores.service.WandService;
 
 @SpringBootTest(classes = RsqlSpringBootApplication.class)
 @ExtendWith(SpringExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SQLInjectionAttackPreventionTest {
 
     private final WandService wandService;
