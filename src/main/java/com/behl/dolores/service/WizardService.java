@@ -41,6 +41,11 @@ public class WizardService {
             Specification<Wizard> specification = rsqlParser.parse(query).accept(wizardRsqlVisitor);
             result = wizardRepository.findAll(specification, PageRequest.of(PageableUtil.getPageNumber(page, count),
                     PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
+
+            if (result.getTotalPages() < result.getNumber() + 1)
+                result = wizardRepository.findAll(specification,
+                        PageRequest.of(PageableUtil.getPageNumber(result.getTotalPages(), count),
+                                PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
         }
         return ResponseBuilder.build(result);
     }
