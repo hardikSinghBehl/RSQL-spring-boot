@@ -28,6 +28,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class RSQLSpecification<T> implements Specification<T> {
 
+    private static final String NULL = "null";
     private static final long serialVersionUID = 5546046598898481992L;
     private String property;
     private ComparisonOperator operator;
@@ -130,20 +131,24 @@ public class RSQLSpecification<T> implements Specification<T> {
             if (!SqlSafeUtil.isSqlInjectionSafe(argument))
                 throw new PossibleSqlInjectionAttackException();
             if (type.isEnum()) {
-                return argument.equalsIgnoreCase("null") ? null : retreiveEnumClass(type, argument);
+                return argument.equalsIgnoreCase(NULL) ? null : retreiveEnumClass(type, argument);
             } else if (type.equals(UUID.class)) {
-                return argument.equalsIgnoreCase("null") ? null : UUID.fromString(argument);
+                return argument.equalsIgnoreCase(NULL) ? null : UUID.fromString(argument);
             } else if (type.equals(LocalDate.class)) {
-                return argument.equalsIgnoreCase("null") ? null : LocalDate.parse(argument);
+                return argument.equalsIgnoreCase(NULL) ? null : LocalDate.parse(argument);
             } else if (type.equals(LocalDateTime.class)) {
-                return argument.equalsIgnoreCase("null") ? null : LocalDateTime.parse(argument);
+                return argument.equalsIgnoreCase(NULL) ? null : LocalDateTime.parse(argument);
             } else if (type.equals(Integer.class)) {
-                return argument.equalsIgnoreCase("null") ? null : Integer.parseInt(argument);
+                return argument.equalsIgnoreCase(NULL) ? null : Integer.parseInt(argument);
             } else if (type.equals(Long.class)) {
-                return argument.equalsIgnoreCase("null") ? null : Long.parseLong(argument);
+                return argument.equalsIgnoreCase(NULL) ? null : Long.parseLong(argument);
             } else if (type.equals(Double.class)) {
-                return argument.equalsIgnoreCase("null") ? null : Double.valueOf(argument);
+                return argument.equalsIgnoreCase(NULL) ? null : Double.valueOf(argument);
             } else if (type.equals(Boolean.class)) {
+                if (argument.equals("1"))
+                    return true;
+                if (argument.equals("0"))
+                    return false;
                 return Boolean.valueOf(argument);
             } else {
                 return argument;
@@ -152,9 +157,9 @@ public class RSQLSpecification<T> implements Specification<T> {
     }
 
     private Object retreiveEnumClass(final Class<? extends Object> type, final String argument) {
-        if (type.getSimpleName().equalsIgnoreCase("Gender"))
+        if (type.getSimpleName().equalsIgnoreCase(Gender.class.getSimpleName()))
             return Enum.valueOf(Gender.class, argument.toUpperCase());
-        else if (type.getSimpleName().equalsIgnoreCase("Species"))
+        else if (type.getSimpleName().equalsIgnoreCase(Species.class.getSimpleName()))
             return Enum.valueOf(Species.class, argument.toUpperCase());
         else
             return null;
