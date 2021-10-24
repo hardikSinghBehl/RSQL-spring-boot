@@ -8,8 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CustomOperator {
 
-    EQUAL_IGNORE_CASE(new ComparisonOperator("=eic=", true)),
-    NOT_EQUAL_IGNORE_CASE(new ComparisonOperator("=neic=", true));
+    EQUAL_IGNORE_CASE(new ComparisonOperator("=eic=")), NOT_EQUAL_IGNORE_CASE(new ComparisonOperator("=neic="));
 
     private ComparisonOperator operator;
 
