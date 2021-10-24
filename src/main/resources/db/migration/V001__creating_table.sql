@@ -15,7 +15,7 @@ CREATE TABLE wizards(
   full_name VARCHAR(100) NOT NULL,
   species ENUM('HUMAN', 'HALF_GIANT', 'WEREWOLF', 'CAT'),
   gender ENUM('MALE', 'FEMALE'),
-  house_id INTEGER NOT NULL,
+  house_id INTEGER,
   date_of_birth DATE,
   eye_color VARCHAR(30),
   hair_color VARCHAR(30),

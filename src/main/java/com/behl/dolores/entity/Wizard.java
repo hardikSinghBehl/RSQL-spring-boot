@@ -45,8 +45,8 @@ public class Wizard implements Serializable {
     private Gender gender;
 
     @Exclude
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "house_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "house_id", nullable = true)
     private MasterHouse house;
 
     @Column(name = "date_of_birth", nullable = true)
