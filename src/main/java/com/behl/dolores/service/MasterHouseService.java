@@ -1,5 +1,7 @@
 package com.behl.dolores.service;
 
+import static com.behl.dolores.utility.CommonUtil.isEmpty;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,7 +39,7 @@ public class MasterHouseService {
         final String sort = rsqlSearchRequestDto.getSort();
         final Integer DEFAULT_COUNT = paginationProperties.getPagination().getDefaultCount();
 
-        if (query == null || query.length() == 0) {
+        if (isEmpty(query)) {
             result = masterHouseRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(null, count),
                     PageableUtil.getCount(null, DEFAULT_COUNT), SortingUtil.build(sort)));
         } else {
@@ -46,7 +48,7 @@ public class MasterHouseService {
                     PageRequest.of(PageableUtil.getPageNumber(page, count), PageableUtil.getCount(count, DEFAULT_COUNT),
                             SortingUtil.build(sort)));
 
-            if (result.getTotalPages() < result.getNumber() + 1)
+            if (PageableUtil.exceedsTotalPageCount(result))
                 result = masterHouseRepository.findAll(specification,
                         PageRequest.of(PageableUtil.getPageNumber(result.getTotalPages(), count),
                                 PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));

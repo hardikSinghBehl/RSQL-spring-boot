@@ -1,5 +1,7 @@
 package com.behl.dolores.utility;
 
+import org.springframework.data.domain.Page;
+
 public class PageableUtil {
 
     public static int getCount(Integer count, Integer defaultCount) {
@@ -14,6 +16,10 @@ public class PageableUtil {
             return 0;
         else
             return pageNumber - 1;
+    }
+
+    public static boolean exceedsTotalPageCount(final Page<?> result) {
+        return result.getTotalPages() < result.getNumber() + 1;
     }
 
 }
