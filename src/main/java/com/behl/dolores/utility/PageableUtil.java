@@ -9,8 +9,8 @@ public class PageableUtil {
             return count;
     }
 
-    public static int getPageNumber(Integer pageNumber) {
-        if (pageNumber == null || pageNumber <= 0 || pageNumber == 1)
+    public static int getPageNumber(Integer pageNumber, Integer count) {
+        if (pageNumber == null || pageNumber <= 0 || pageNumber == 1 || count == null || count <= 0)
             return 0;
         else
             return pageNumber - 1;

@@ -35,11 +35,11 @@ public class WizardService {
         final String sort = rsqlSearchRequestDto.getSort();
 
         if (query == null || query.length() == 0) {
-            result = wizardRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(page),
+            result = wizardRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(page, count),
                     PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
         } else {
             Specification<Wizard> specification = rsqlParser.parse(query).accept(wizardRsqlVisitor);
-            result = wizardRepository.findAll(specification, PageRequest.of(PageableUtil.getPageNumber(page),
+            result = wizardRepository.findAll(specification, PageRequest.of(PageableUtil.getPageNumber(page, count),
                     PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
         }
         return ResponseBuilder.build(result);
