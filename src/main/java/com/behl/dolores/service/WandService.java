@@ -35,8 +35,8 @@ public class WandService {
         final String sort = rsqlSearchRequestDto.getSort();
 
         if (query == null || query.length() == 0) {
-            result = wandRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(page, count),
-                    PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
+            result = wandRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(null, count),
+                    PageableUtil.getCount(null, DEFAULT_COUNT), SortingUtil.build(sort)));
         } else {
             Specification<Wand> specification = rsqlParser.parse(query).accept(wandRsqlVisitor);
             result = wandRepository.findAll(specification, PageRequest.of(PageableUtil.getPageNumber(page, count),

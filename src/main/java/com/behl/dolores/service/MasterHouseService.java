@@ -35,8 +35,8 @@ public class MasterHouseService {
         final String sort = rsqlSearchRequestDto.getSort();
 
         if (query == null || query.length() == 0) {
-            result = masterHouseRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(page, count),
-                    PageableUtil.getCount(count, DEFAULT_COUNT), SortingUtil.build(sort)));
+            result = masterHouseRepository.findAll(PageRequest.of(PageableUtil.getPageNumber(null, count),
+                    PageableUtil.getCount(null, DEFAULT_COUNT), SortingUtil.build(sort)));
         } else {
             Specification<MasterHouse> specification = rsqlParser.parse(query).accept(masterHouseRsqlVisitor);
             result = masterHouseRepository.findAll(specification,
