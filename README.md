@@ -1,7 +1,7 @@
 ### Representational State Transfer + Structured Query Language: RSQL
 #### Demo application using [RSQL parser](https://github.com/jirutka/rsql-parser) to filter records based on provided condition(s)
 
-A Single `GET API` is all that is to be exposed per [Entity](https://github.com/hardikSinghBehl/RSQL-spring-boot/tree/main/src/main/java/com/behl/dolores/entity) class.
+A Single `GET API` is all that is needed to be exposed per [Entity](https://github.com/hardikSinghBehl/RSQL-spring-boot/tree/main/src/main/java/com/behl/dolores/entity) class.
 
 ### Additional Datatypes added/supported
 * UUID
@@ -26,7 +26,7 @@ https://user-images.githubusercontent.com/69693621/138670878-0e6f66ae-9b64-4581-
     * `page` : starts with 1, if value provided is <=0, first page is returned and if value>totalPages, the last page is returned
   * Sample path
   ```
-  htttp:localhost:8080/wizards?query=gender==female&count=5&page=1
+  http:localhost:8080/wizards?query=gender==female&count=5&page=1
   ```
   * Sample Response
   ```
