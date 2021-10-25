@@ -11,7 +11,7 @@ A Single `GET API` is all that is to be exposed per [Entity](https://github.com/
 * Boolean String (true, false) and Bit (1,0)
 * Nested Objects
 
-### Additional Operations/supported
+### Additional Operations added/supported
 * equalIgnoreCase (=eic=)
 * notEqualIgnoreCase (=neic=)
 
@@ -102,3 +102,8 @@ https://user-images.githubusercontent.com/69693621/138661528-190f8b78-0f01-42a4-
 ### References
 * [Baeldung Article](https://www.baeldung.com/rest-api-search-language-rsql-fiql)
 * [Demo application](https://github.com/JonLally/rsql-demo)
+
+---
+⭐️ Star the repository to show support
+
+🤝 PRs welcome 
